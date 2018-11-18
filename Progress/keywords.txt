@@ -1,0 +1,10 @@
+Neural Networks
+Office Hours
+Support Vector Machines
+Uniform Cost Search
+Linear Regression
+Recommender Systems
+Softmax Regression
+Multimodal Classification
+Education
+Queuestatus
