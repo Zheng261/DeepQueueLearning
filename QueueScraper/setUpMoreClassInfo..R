@@ -10,7 +10,7 @@ ClassesListModel[index,"FinalsDate"] = c("2017-6-9")
 ## Spring 2017 assignments 
 ClassesListModel[index,c(14:23)] = c("2017-4-14","2017-4-21","2017-4-28","2017-5-8","2017-5-19","2017-5-26","2017-6-2","2030-4-20","2030-4-20","2030-4-20")
 ClassesListModel[index,c(3:13)] = findAllWeeks(ClassesListModel[index,"W1"],as.logical(YearList[which(YearList[,"QuarterYear"]==ClassesListModel[index,"QuarterYear"]),c("W9break?")]))
-ClassesListModel[index,"QueueStatus"] = 130
+ClassesListModel[index,"QueueStatus"] = 94
 ClassesListModel[index,"NumStudents"] = 93
 ## Mary Wooters
 ClassesListModel[index,"InstructorRating"] = 4.0
@@ -29,7 +29,7 @@ ClassesListModel[index,"FinalsDate"] = c("2017-12-13")
 ### Autumn 2017 assignments
 ClassesListModel[index,c(14:23)] = c("2017-10-6","2017-10-13","2017-10-20","2017-10-27","2017-11-10","2017-11-19","2017-12-1","2030-4-20","2030-4-20","2030-4-20")
 ClassesListModel[index,c(3:13)] = findAllWeeks(ClassesListModel[index,"W1"],as.logical(YearList[which(YearList[,"QuarterYear"]==ClassesListModel[index,"QuarterYear"]),c("W9break?")]))
-ClassesListModel[index,"QueueStatus"] = 94
+ClassesListModel[index,"QueueStatus"] = 130
 ClassesListModel[index,"NumStudents"] = 64
 ClassesListModel[index,"InstructorRating"] = 4.5
 ClassesListModel[index,"AvgHrsSpent"] = 10.12
