@@ -246,7 +246,6 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
   write.csv(sparseDayHourFrame,paste0(nameAppend,ClassesList[class,"ClassNum"],ClassesList[class,"QuarterYear"],"dataset.csv"))
 }
 
-
 MetaInterval = 1
 for (class in c(1:nrow(ClassesList))) {
   getQueueStatus(class,Interval="hour",MetaInterval)

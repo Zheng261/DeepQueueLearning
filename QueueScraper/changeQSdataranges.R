@@ -1,6 +1,6 @@
 #sparseDayHourFrame$NumEntriesInInt = 0
 #saveRDS(sparseDayHourFrame[0,],"11.26DataRangeColnames.rdat")
-changeInterval <- function(MetaInterval = 2,ClassesList = ClassesList) {
+changeInterval <- function(MetaInterval = 2) {
   correctCols = readRDS("11.26DataRangeColnames.rdat")
 
   for (class in c(1:nrow(ClassesList))) {
@@ -42,9 +42,9 @@ changeInterval <- function(MetaInterval = 2,ClassesList = ClassesList) {
       nextUp[1,c("NumEntriesInInt")] = numEntriesInInt
       newDHFrame = rbind(newDHFrame,nextUp)
     }
-    write.csv(newDHFrame,paste0(MetaInterval,"Hr",fileName))
+    write.csv(newDHFrame,paste0("IntData/",MetaInterval,"Hr",fileName))
   }
 }
 
+changeInterval(MetaInterval = 2)
 changeInterval(MetaInterval = 4)
-

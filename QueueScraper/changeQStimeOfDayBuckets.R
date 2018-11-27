@@ -1,4 +1,4 @@
-changeTOD <- function(ClassesList = ClassesList) {
+changeTOD <- function() {
   correctCols = readRDS("11.26DataRangeColnames.rdat")
   for (class in c(1:nrow(ClassesList))) {
     newDHFrame = correctCols
@@ -42,7 +42,7 @@ changeTOD <- function(ClassesList = ClassesList) {
       nextUp[1,c("NumEntriesInInt")] = numEntriesInInt
       newDHFrame = rbind(newDHFrame,nextUp)
     }
-    write.csv(newDHFrame,paste0("ToD",fileName))
+    write.csv(newDHFrame,paste0("ToDData/","ToD",fileName))
   }
 }
 

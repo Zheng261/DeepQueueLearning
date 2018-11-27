@@ -43,7 +43,7 @@ ClassesList[index,c("ClassNum","QuarterYear")]= c("CS107","Spring2017")
 ClassesList[index,"W1"] = YearList[which(YearList[,"QuarterYear"]==ClassesList[index,"QuarterYear"]),c("W1")]
 ClassesList[index,c("MidtermDate1","MidtermDate2")] = c("2017-4-28","2017-5-25")
 ClassesList[index,"FinalsDate"] = c("2017-6-14")
-## Spring 2017 (extrapolated)
+## Spring 2017 assignments (extrapolated)
 ClassesList[index,c(14:23)] = c("2017-4-11","2017-4-18","2017-4-26","2017-5-8","2017-5-15","2017-5-27","2017-6-9","2030-4-20","2030-4-20","2030-4-20")
 ClassesList[index,c(3:13)] = findAllWeeks(ClassesList[index,"W1"],as.logical(YearList[which(YearList[,"QuarterYear"]==ClassesList[index,"QuarterYear"]),c("W9break?")]))
 ClassesList[index,"QueueStatus"] = 83
@@ -123,4 +123,4 @@ ClassesList[index,"ProportionFrosh"] = 0.29
 ClassesList[index,"ProportionGrads"] = 0.14
 ClassesList[index,"ProportionPhDs"] = 0.05
 
-saveRDS(ClassesList,"11.26CS107ClassesListInfo.RDAT")
+#saveRDS(ClassesList,"11.26CS107ClassesListInfo.RDAT")
