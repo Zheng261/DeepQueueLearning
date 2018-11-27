@@ -1,0 +1,39 @@
+Hello! Reminder to stay hydrated!
+
+Guide to datasets:
+
+Regular: One hour interval datasets, which is the default from gradescope.
+
+ToDData: Data where office hours periods are separated by time of day. Mornings are defined as 9am-11am, noon 12pm-3pm, afternoon 4pm-7pm, evening 8pm onwards. Aggregating data this way allows us to hopefully reduce variability in entries.
+
+IntData: Data where office hours periods are divided into time chunks (either 2 or 4 hours). We do this in a greedy manner - we go down the list of office hours and start a new interval whenever the last one ends. (ex. If in the regular dataset we have office hours entries at 9am, 10am, 11am, 3pm, 4pm, 8pm, and we want an interval of 2 hours, in our new dataset we have one entry for 9am-10am, one entry for 11am, one entry for 3pm-4pm, and one entry for 8pm). Aggregating data this way allows us to hopefully reduce variability in entries.
+
+Guide to features:
+[1] "sign_ups" : # sign ups in interval                   
+[2] "serves"  : # serves in interval                
+[3] "servers"  : # servers in interval, on average                
+[4] "average_wait_time" : average wait time within interval 
+[5] "average_serve_time"  : average serve time within interval
+[6] "day"                : day of entry       
+[7] "avgDayServeTime"      : average serve time in the day        
+[8] "loadInflux"          	: # sign ups in the interval * average serve time in the day        
+[9-11] "daysAfterPrevAssnDue"         "daysUntilNextAssnDue"          "daysTilExam"  : Self explanatory - integers representing these numbers. We cutoff at 20 days (anything above is just 20). We may not use these features, since we have buckets.
+[12] "hourOfDay" : hour (1-24) within the day. We may not use this feature, since we have buckets.              
+[13] "weekNum"   : week (1-11) of entry
+[14-17] "morning"                      "noon"                         "afternoon"                   "evening"   :
+Indicator variables. Mornings are defined as 9am-11am, noon 12pm-3pm, afternoon 4pm-7pm, evening 8pm onwards.
+[18-22] "L10daysAfterPrevAssnDue"      "L5daysAfterPrevAssnDue"       "L3daysAfterPrevAssnDue"      "L1daysAfterPrevAssnDue" :
+Indicator variables. One or less of these is 1. Buckets are 10-5 days, 4-3 days, 3-1 days, <1 day.
+[23-26] "L10daysUntilNextAssnDue"      "L5daysUntilNextAssnDue"       "L3daysUntilNextAssnDue"      "L1daysUntilNextAssnDue" 
+Indicator variables. One or less of these is 1. Buckets are 10-5 days, 4-3 days, 3-1 days, <1 day.      
+[27-30] "L10daysTilExam"               "L5daysTilExam"                "L3daysTilExam"               "L1daysTilExam" 
+Indicator variables. One or less of these is 1. Buckets are 10-5 days, 4-3 days, 3-1 days, <1 day.
+[31-32] "isFirstOHWithinLastThreeHour" "isFirstOHWithinLastSixHour"   
+Indicator variables. One or less of these is 1. (this OH is not within 0-3 hours of the last OH, or 4-6 hours of the last OH)
+[33-34] "isLastOHWithinNextThreeHour"  "isLastOHWithinNextSixHour"    
+Indicator variables. One or less of these is 1. (this OH is not within 0-3 hours of the next OH, or 4-6 hours of the next OH)
+[35] "NumStudents"  : # students                
+[36] "InstructorRating"  : Instructor rating (from carta) for the quarter. If unavailable, extracted from average of ratings in other courses    
+[37] "AvgHrsSpent"   : Scraped from carta, self-explanatory.           
+[38-41] "ProportionFrosh"              "ProportionGrads"              "ProportionPhDs"   : Scraped from carta, self-explanatory.           
+[42] "NumEntriesInInt": Number of entries in the interval described (ex. on this day 3 nonzero entries exist in a "morning" period, as defined above).

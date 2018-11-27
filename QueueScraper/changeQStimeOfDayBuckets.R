@@ -38,12 +38,11 @@ changeTOD <- function() {
           entry = entry + 1
         }
       }
-      nextUp[1,c("average_wait_time","average_serve_time")] = nextUp[1,c("average_wait_time","average_serve_time")]/numEntriesInInt
+      nextUp[1,c("servers","average_wait_time","average_serve_time")] = nextUp[1,c("servers","average_wait_time","average_serve_time")]/numEntriesInInt
       nextUp[1,c("NumEntriesInInt")] = numEntriesInInt
       newDHFrame = rbind(newDHFrame,nextUp)
     }
     write.csv(newDHFrame,paste0("ToDData/","ToD",fileName))
   }
 }
-
 changeTOD()
