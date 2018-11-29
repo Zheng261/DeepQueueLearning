@@ -13,7 +13,6 @@ setwd("/Users/ZhengYan/Desktop/CS221")
 #class = 1
 #Interval = "hour"
 getQueueStatus <- function(class,Interval,MetaInterval = 1) {
-  Interval = "hour"
   Start = as.POSIXct(ClassesList[class,"W1"])
   End = as.POSIXct(ClassesList[class,"FinalsDate"])
   Queue = ClassesList[class,"QueueStatus"]
@@ -45,19 +44,22 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
   sparseDayHourFrame$daysUntilNextAssnDue = 0
   sparseDayHourFrame$daysTilExam = 0
   
-  sparseDayHourFrame$hourOfDay = 0
+  if (Interval == "hour") {
+    sparseDayHourFrame$hourOfDay = 0
+  }
   
   sparseDayHourFrame$weekNum = 0
   
-  ### Morning is 8AM to 11AM (8-11)###
-  sparseDayHourFrame$morning = 0
-  ### Noon is 12PM to 3PM (12-15)###
-  sparseDayHourFrame$noon = 0
-  ### Afternoon is 4PM to 7PM (16-19)###
-  sparseDayHourFrame$afternoon = 0
-  ### Evening is 8PM to 12AM (20-23) (12 is just a fringe case, hopefully TAs dont actually stay that long)###
-  sparseDayHourFrame$evening = 0
-  
+  if (Interval == "hour") {
+    ### Morning is 8AM to 11AM (8-11)###
+    sparseDayHourFrame$morning = 0
+    ### Noon is 12PM to 3PM (12-15)###
+    sparseDayHourFrame$noon = 0
+    ### Afternoon is 4PM to 7PM (16-19)###
+    sparseDayHourFrame$afternoon = 0
+    ### Evening is 8PM to 12AM (20-23) (12 is just a fringe case, hopefully TAs dont actually stay that long)###
+    sparseDayHourFrame$evening = 0
+  }
   sparseDayHourFrame$L10daysAfterPrevAssnDue = 0
   sparseDayHourFrame$L5daysAfterPrevAssnDue = 0
   sparseDayHourFrame$L3daysAfterPrevAssnDue = 0
@@ -73,11 +75,12 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
   sparseDayHourFrame$L3daysTilExam = 0
   sparseDayHourFrame$L1daysTilExam = 0
   
-  sparseDayHourFrame$isFirstOHWithinLastThreeHour = 0
-  sparseDayHourFrame$isFirstOHWithinLastSixHour = 0
-  
-  sparseDayHourFrame$isLastOHWithinNextThreeHour = 0
-  sparseDayHourFrame$isLastOHWithinNextSixHour = 0
+  if (Interval == "hour") {
+    sparseDayHourFrame$isFirstOHWithinLastThreeHour = 0
+    sparseDayHourFrame$isFirstOHWithinLastSixHour = 0
+    sparseDayHourFrame$isLastOHWithinNextThreeHour = 0
+    sparseDayHourFrame$isLastOHWithinNextSixHour = 0
+  }
   
   #### Week numbers of the year ####
   weekList <- ClassesList[class,c(3:13)]
@@ -98,44 +101,45 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
   for (entry in c(1:nrow(sparseDayHourFrame))){
     time <- strptime(rownames(sparseDayHourFrame)[entry],format="%b %d, %Y %I:%M %p")
     ### Figures out if this is the first OH within the last four hours
-    if (entry != 1) {
-      LastTime <- strptime(rownames(sparseDayHourFrame)[entry-1],format="%b %d, %Y %I:%M %p")
-      hoursElapsed = time - LastTime
-      hoursSinceLast = as.numeric(hoursElapsed,units="hours")
-      if (hoursSinceLast >= 3) {
+    if (Interval == "hour") {
+      if (entry != 1) {
+        LastTime <- strptime(rownames(sparseDayHourFrame)[entry-1],format="%b %d, %Y %I:%M %p")
+        hoursElapsed = time - LastTime
+        hoursSinceLast = as.numeric(hoursElapsed,units="hours")
+        if (hoursSinceLast >= 3) {
+          sparseDayHourFrame$isFirstOHWithinLastSixHour[entry] = 1
+        } else if (hoursSinceLast >= 6) {
+          sparseDayHourFrame$isFirstOHWithinLastThreeHour[entry] = 1
+        }
+      } else {
         sparseDayHourFrame$isFirstOHWithinLastSixHour[entry] = 1
-      } else if (hoursSinceLast >= 6) {
-        sparseDayHourFrame$isFirstOHWithinLastThreeHour[entry] = 1
       }
-    } else {
-      sparseDayHourFrame$isFirstOHWithinLastSixHour[entry] = 1
-    }
-    
-    if (entry != nrow(sparseDayHourFrame)) {
-      NextTime <- strptime(rownames(sparseDayHourFrame)[entry+1],format="%b %d, %Y %I:%M %p")
-      hoursElapsed = NextTime - time
-      hoursUntilNext = as.numeric(hoursElapsed,units="hours")
-      if (hoursUntilNext >= 6) {
-        sparseDayHourFrame$isLastOHWithinNextSixHour[entry] = 1
-      } else if (hoursUntilNext >= 3) {
-        sparseDayHourFrame$isLastOHWithinNextThreeHour[entry] = 1
-      }
-    } else {
-      sparseDayHourFrame$isLastOHWithinNextSixHour[entry] = 1
-    }
-    
-    sparseDayHourFrame$hourOfDay[entry] = time$hour
-    
-    if (time$hour <= 11) {
-      sparseDayHourFrame$morning[entry] = 1
-    } else if (time$hour <= 15) {
-      sparseDayHourFrame$noon[entry] = 1
-    } else if (time$hour <= 19) {
-      sparseDayHourFrame$afternoon[entry] = 1
-    } else if (time$hour <= 24) {
-      sparseDayHourFrame$evening[entry] = 1
-    }
       
+      if (entry != nrow(sparseDayHourFrame)) {
+        NextTime <- strptime(rownames(sparseDayHourFrame)[entry+1],format="%b %d, %Y %I:%M %p")
+        hoursElapsed = NextTime - time
+        hoursUntilNext = as.numeric(hoursElapsed,units="hours")
+        if (hoursUntilNext >= 6) {
+          sparseDayHourFrame$isLastOHWithinNextSixHour[entry] = 1
+        } else if (hoursUntilNext >= 3) {
+          sparseDayHourFrame$isLastOHWithinNextThreeHour[entry] = 1
+        }
+      } else {
+        sparseDayHourFrame$isLastOHWithinNextSixHour[entry] = 1
+      }
+      
+      sparseDayHourFrame$hourOfDay[entry] = time$hour
+      
+      if (time$hour <= 11) {
+        sparseDayHourFrame$morning[entry] = 1
+      } else if (time$hour <= 15) {
+        sparseDayHourFrame$noon[entry] = 1
+      } else if (time$hour <= 19) {
+        sparseDayHourFrame$afternoon[entry] = 1
+      } else if (time$hour <= 24) {
+        sparseDayHourFrame$evening[entry] = 1
+      }
+    }
     sparseDayHourFrame$day[entry] = time$wday
     ###### Calculates average serve time that day ######
     otherEntriesInDay = which(substr(rownames(sparseDayHourFrame),0,6)==substr(rownames(sparseDayHourFrame)[entry],0,6))
@@ -241,12 +245,12 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
     nameAppend = paste0(MetaInterval,"HrEntry")
   }
   if (Interval != "hour") {
-    nameAppend = paste0(nameAppend,Interval,"PerQuery")
+    nameAppend = paste0(nameAppend,"Daily")
   }
   write.csv(sparseDayHourFrame,paste0(nameAppend,ClassesList[class,"ClassNum"],ClassesList[class,"QuarterYear"],"dataset.csv"))
 }
 
 MetaInterval = 1
 for (class in c(1:nrow(ClassesList))) {
-  getQueueStatus(class,Interval="hour",MetaInterval)
+  getQueueStatus(class,Interval="day",MetaInterval)
 }

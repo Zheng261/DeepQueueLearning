@@ -78,4 +78,4 @@ ClassesListModel[index,"ProportionGrads"] = 0.18
 ClassesListModel[index,"ProportionPhDs"] = 0.02
 NewClassesList = rbind(NewClassesList,ClassesListModel)
 
-
+ClassesList = rbind(ClassesList,NewClassesList)
