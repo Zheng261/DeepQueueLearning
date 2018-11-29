@@ -21,7 +21,7 @@ Guide to features:
 [12] "hourOfDay" : hour (1-24) within the day. We may not use this feature, since we have buckets.              
 [13] "weekNum"   : week (1-11) of entry
 [14-17] "morning"                      "noon"                         "afternoon"                   "evening"   :
-Indicator variables. Mornings are defined as 9am-11am, noon 12pm-3pm, afternoon 4pm-7pm, evening 8pm onwards.
+Indicator variables. Mornings are defined as 8am-12pm, noon 12pm-4pm, afternoon 4pm-8pm, evening 8pm onwards.
 [18-22] "L10daysAfterPrevAssnDue"      "L5daysAfterPrevAssnDue"       "L3daysAfterPrevAssnDue"      "L1daysAfterPrevAssnDue" :
 Indicator variables. One or less of these is 1. Buckets are 10-5 days, 4-3 days, 3-1 days, <1 day.
 [23-26] "L10daysUntilNextAssnDue"      "L5daysUntilNextAssnDue"       "L3daysUntilNextAssnDue"      "L1daysUntilNextAssnDue" 
