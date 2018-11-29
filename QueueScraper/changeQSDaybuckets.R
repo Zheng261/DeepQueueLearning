@@ -12,20 +12,19 @@ changeDays <- function() {
       nextUp = sparseDayHourFrame[entry,]
       dayfirstent = nextUp[1,"day"]
       weekfirstent = nextUp[1,"weekNum"]
-      TODfirstent = which(nextUp[1,c("morning","noon","afternoon","evening")] == 1)
       time <- strptime(rownames(sparseDayHourFrame)[entry],format="%b %d, %Y %I:%M %p")
       numEntriesInInt = 1
       ### Loops within interval
-      for (timeWithin in c(1:5)) {
+      for (timeWithin in c(1:24)) {
         nextEntry = entry+timeWithin
         ## If we're still within physical bounds
         if (nextEntry <= nrow(sparseDayHourFrame)) {
-          TODthisent = which(sparseDayHourFrame[nextEntry,c("morning","noon","afternoon","evening")] == 1)
+
           daythisent = sparseDayHourFrame[nextEntry,"day"]
           weekthisent = sparseDayHourFrame[nextEntry,"weekNum"]
           
           ## If we are not within the time period requested
-          if (TODthisent != TODfirstent | daythisent != dayfirstent | weekfirstent != weekthisent) {
+          if (daythisent != dayfirstent | weekfirstent != weekthisent) {
             startNew = TRUE
             entry = nextEntry
             break
@@ -45,4 +44,4 @@ changeDays <- function() {
     write.csv(newDHFrame,paste0("DailyData/","Daily",fileName))
   }
 }
-changeTOD()
+changeDays()
