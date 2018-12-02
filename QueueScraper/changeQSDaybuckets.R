@@ -41,7 +41,7 @@ changeDays <- function() {
       nextUp[1,c("NumEntriesInInt")] = numEntriesInInt
       newDHFrame = rbind(newDHFrame,nextUp)
     }
-    write.csv(newDHFrame,paste0("DailyData/","Daily",fileName))
+    write.csv(newDHFrame,paste0("DailyData/",fileName))
   }
 }
 changeDays()

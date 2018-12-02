@@ -43,12 +43,16 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
   sparseDayHourFrame$daysAfterPrevAssnDue = 0
   sparseDayHourFrame$daysUntilNextAssnDue = 0
   sparseDayHourFrame$daysTilExam = 0
-  
-  if (Interval == "hour") {
-    sparseDayHourFrame$hourOfDay = 0
-  }
-  
   sparseDayHourFrame$weekNum = 0
+  sparseDayHourFrame$hourOfDay = 0
+  
+  sparseDayHourFrame$monday = 0
+  sparseDayHourFrame$tuesday = 0
+  sparseDayHourFrame$wednesday = 0
+  sparseDayHourFrame$thursday = 0
+  sparseDayHourFrame$friday = 0
+  sparseDayHourFrame$saturday = 0
+  sparseDayHourFrame$sunday = 0
   
   if (Interval == "hour") {
     ### Morning is 8AM to 11AM (8-11)###
@@ -60,11 +64,12 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
     ### Evening is 8PM to 12AM (20-23) (12 is just a fringe case, hopefully TAs dont actually stay that long)###
     sparseDayHourFrame$evening = 0
   }
+  
   sparseDayHourFrame$L10daysAfterPrevAssnDue = 0
   sparseDayHourFrame$L5daysAfterPrevAssnDue = 0
   sparseDayHourFrame$L3daysAfterPrevAssnDue = 0
   sparseDayHourFrame$L1daysAfterPrevAssnDue = 0
- 
+  
   sparseDayHourFrame$L10daysUntilNextAssnDue = 0
   sparseDayHourFrame$L5daysUntilNextAssnDue = 0
   sparseDayHourFrame$L3daysUntilNextAssnDue = 0
@@ -75,12 +80,10 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
   sparseDayHourFrame$L3daysTilExam = 0
   sparseDayHourFrame$L1daysTilExam = 0
   
-  if (Interval == "hour") {
-    sparseDayHourFrame$isFirstOHWithinLastThreeHour = 0
-    sparseDayHourFrame$isFirstOHWithinLastSixHour = 0
-    sparseDayHourFrame$isLastOHWithinNextThreeHour = 0
-    sparseDayHourFrame$isLastOHWithinNextSixHour = 0
-  }
+  sparseDayHourFrame$isFirstOHWithinLastThreeHour = 0
+  sparseDayHourFrame$isFirstOHWithinLastSixHour = 0
+  sparseDayHourFrame$isLastOHWithinNextThreeHour = 0
+  sparseDayHourFrame$isLastOHWithinNextSixHour = 0
   
   #### Week numbers of the year ####
   weekList <- ClassesList[class,c(3:13)]
@@ -141,6 +144,23 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
       }
     }
     sparseDayHourFrame$day[entry] = time$wday
+    if (sparseDayHourFrame$day[entry] == 1) {
+      sparseDayHourFrame$monday[entry] = 1
+    } else if (sparseDayHourFrame$day[entry] == 2) {
+      sparseDayHourFrame$tuesday[entry] = 1
+    } else if (sparseDayHourFrame$day[entry] == 3) {
+      sparseDayHourFrame$wednesday[entry] = 1
+    } else if (sparseDayHourFrame$day[entry] == 4) {
+      sparseDayHourFrame$thursday[entry] = 1
+    } else if (sparseDayHourFrame$day[entry] == 5) {
+      sparseDayHourFrame$friday[entry] = 1
+    } else if (sparseDayHourFrame$day[entry] == 6) {
+      sparseDayHourFrame$saturday[entry] = 1
+    } else if (sparseDayHourFrame$day[entry] == 0) {
+      sparseDayHourFrame$sunday[entry] = 1
+    }
+    
+    
     ###### Calculates average serve time that day ######
     otherEntriesInDay = which(substr(rownames(sparseDayHourFrame),0,6)==substr(rownames(sparseDayHourFrame)[entry],0,6))
     ServeTimesThatDay = sparseDayHourFrame[otherEntriesInDay,"average_serve_time"]
@@ -252,5 +272,6 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
 
 MetaInterval = 1
 for (class in c(1:nrow(ClassesList))) {
-  getQueueStatus(class,Interval="day",MetaInterval)
+  print(class)
+  getQueueStatus(class,Interval="hour",MetaInterval)
 }
