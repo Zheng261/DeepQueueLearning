@@ -42,7 +42,7 @@ changeTOD <- function() {
       nextUp[1,c("NumEntriesInInt")] = numEntriesInInt
       newDHFrame = rbind(newDHFrame,nextUp)
     }
-    write.csv(newDHFrame,paste0("ToDData/","ToD",fileName))
+    write.csv(newDHFrame,paste0("ToDData/",fileName))
   }
 }
 changeTOD()

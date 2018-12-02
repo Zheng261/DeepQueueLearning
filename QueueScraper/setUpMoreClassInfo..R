@@ -78,4 +78,32 @@ ClassesListModel[index,"ProportionGrads"] = 0.18
 ClassesListModel[index,"ProportionPhDs"] = 0.02
 NewClassesList = rbind(NewClassesList,ClassesListModel)
 
+### 3 hours of TAing per week for each TA. Depends on class! TAs - 2 hour slot, 1 hour slot 
+### Blot out 2 hours 
+### Possible class times - MWF or TT 
+### Block out actual lecture time 
+###### CS229 Autumn 2018 #######
+ClassesListModel = ClassesList[1,]
+ClassesListModel[index,c("ClassNum","QuarterYear")]= c("CS229","Autumn2018")
+ClassesListModel[index,"W1"] = YearList[which(YearList[,"QuarterYear"]==ClassesListModel[index,"QuarterYear"]),c("W1")]
+ClassesListModel[index,c("MidtermDate1","MidtermDate2")] = c("2018-11-7","2018-11-8")
+ClassesListModel[index,"FinalsDate"] = c("2030-4-20")
+### Autumn 2018 assignments
+ClassesListModel[index,c(14:23)] = c("2018-10-17","2018-10-31","2018-11-14","2018-12-5","2030-4-20","2030-4-20","2030-4-20","2030-4-20","2030-4-20","2030-4-20")
+ClassesListModel[index,c(3:13)] = findAllWeeks(ClassesListModel[index,"W1"],as.logical(YearList[which(YearList[,"QuarterYear"]==ClassesListModel[index,"QuarterYear"]),c("W9break?")]))
+ClassesListModel[index,"QueueStatus"] = 251
+ClassesListModel[index,"NumStudents"] = 634
+## Andrew Ng?
+ClassesListModel[index,"InstructorRating"] = 4.1
+ClassesListModel[index,"AvgHrsSpent"] = 15.3
+ClassesListModel[index,"ProportionFrosh"] = 0.04
+ClassesListModel[index,"ProportionGrads"] = 0.49
+ClassesListModel[index,"ProportionPhDs"] = 0.21
+NewClassesList = rbind(NewClassesList,ClassesListModel)
+
+### 3 hours of TAing per week for each TA. Depends on class! TAs - 2 hour slot, 1 hour slot 
+### Blot out 2 hours 
+### Possible class times - MWF or TT 
+### Block out actual lecture time 
+
 ClassesList = rbind(ClassesList,NewClassesList)

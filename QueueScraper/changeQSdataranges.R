@@ -45,6 +45,6 @@ changeInterval <- function(MetaInterval = 2) {
     write.csv(newDHFrame,paste0("IntData/",MetaInterval,"Hr",fileName))
   }
 }
-
 changeInterval(MetaInterval = 2)
 changeInterval(MetaInterval = 4)
+
