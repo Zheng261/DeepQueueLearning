@@ -2,10 +2,19 @@
 correctCols = readRDS("11.16colnames.rdat")
 
 for (class in c(1:nrow(ClassesList))) {
-  df = read.csv(paste0("ToDData/ToD",ClassesList[class,"ClassNum"],ClassesList[class,"QuarterYear"],"dataset.csv"))
+  df = read.csv(paste0(ClassesList[class,"ClassNum"],ClassesList[class,"QuarterYear"],"dataset.csv"))
   df = df[,-1]
   correctCols = rbind(correctCols,df)
 }
+boxplot(correctCols$loadInflux)
+
+#9am-11am #200
+
+cor.test(correctCols$loadInflux, correctCols$daysUntilNextAssnDue, method=c("pearson"))
+cor.test(correctCols$loadInflux,correctCols$hourOfDay)
+cor.test(correctCols$loadInflux,correctCols$servers)
+cor.test(correctCols$loadInflux,correctCols$weekNum)
+cor.test(correctCols$loadInflux,correctCols$day)
 
 correctCols$loadInfluxCategorical = 0
 for (row in c(1:nrow(correctCols))) {
