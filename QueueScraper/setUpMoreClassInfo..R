@@ -127,3 +127,4 @@ NewClassesList = rbind(NewClassesList,ClassesListModel)
 ### Block out actual lecture time 
 
 ClassesList = rbind(ClassesList,NewClassesList)
+

@@ -1,18 +1,8 @@
-install.packages("RCurl")
-library(RCurl)
-library(jsonlite)
-library(plyr)
-library(dplyr)
-library(httr)
-library(lubridate)
-library(randomForest)
-
-### Sets work directory to be options folder
 setwd("/Users/ZhengYan/Desktop/CS221")
 
 #class = 1
 #Interval = "hour"
-getQueueStatus <- function(class,Interval,MetaInterval = 1) {
+getQueueStatusFull <- function(class,Interval,MetaInterval = 1) {
   Start = as.POSIXct(ClassesList[class,"W1"])
   End = as.POSIXct(ClassesList[class,"FinalsDate"])
   Queue = ClassesList[class,"QueueStatus"]
@@ -31,7 +21,9 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
   rownames(dayHourFrame) <- queueStatus$data[-1,1]
   
   #### Takes away all entries where we have everything = 0 #####
-  sparseDayHourFrame <- dayHourFrame[apply(dayHourFrame, 1, function(x) { sum(x == 0) } ) != 5,]
+  sparseDayHourFrame <- dayHourFrame
+  #[apply(dayHourFrame, 1, function(x) { sum(x == 0) } ) != 5,]
+  sparseDayHourFrame$index = 0
   sparseDayHourFrame$day = 0
   sparseDayHourFrame$sign_ups = as.numeric(as.character(sparseDayHourFrame$sign_ups))
   sparseDayHourFrame$serves = as.numeric(as.character(sparseDayHourFrame$serves))
@@ -80,11 +72,6 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
   sparseDayHourFrame$L3daysTilExam = 0
   sparseDayHourFrame$L1daysTilExam = 0
   
-  sparseDayHourFrame$isFirstOHWithinLastThreeHour = 0
-  sparseDayHourFrame$isFirstOHWithinLastSixHour = 0
-  sparseDayHourFrame$isLastOHWithinNextThreeHour = 0
-  sparseDayHourFrame$isLastOHWithinNextSixHour = 0
-  
   #### Week numbers of the year ####
   weekList <- ClassesList[class,c(3:13)]
   weekList <- weekList[which(weekList[1,] != "2030-4-20")]
@@ -100,39 +87,14 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
   ### Gets date of final
   finalDates <- ClassesList[class,c("FinalsDate")]
   midtermDates = c(midtermDates, finalDates)
-
+  
   for (entry in c(1:nrow(sparseDayHourFrame))){
     time <- strptime(rownames(sparseDayHourFrame)[entry],format="%b %d, %Y %I:%M %p")
+    
+
     ### Figures out if this is the first OH within the last four hours
     if (Interval == "hour") {
-      if (entry != 1) {
-        LastTime <- strptime(rownames(sparseDayHourFrame)[entry-1],format="%b %d, %Y %I:%M %p")
-        hoursElapsed = time - LastTime
-        hoursSinceLast = as.numeric(hoursElapsed,units="hours")
-        if (hoursSinceLast >= 3) {
-          sparseDayHourFrame$isFirstOHWithinLastSixHour[entry] = 1
-        } else if (hoursSinceLast >= 6) {
-          sparseDayHourFrame$isFirstOHWithinLastThreeHour[entry] = 1
-        }
-      } else {
-        sparseDayHourFrame$isFirstOHWithinLastSixHour[entry] = 1
-      }
-      
-      if (entry != nrow(sparseDayHourFrame)) {
-        NextTime <- strptime(rownames(sparseDayHourFrame)[entry+1],format="%b %d, %Y %I:%M %p")
-        hoursElapsed = NextTime - time
-        hoursUntilNext = as.numeric(hoursElapsed,units="hours")
-        if (hoursUntilNext >= 6) {
-          sparseDayHourFrame$isLastOHWithinNextSixHour[entry] = 1
-        } else if (hoursUntilNext >= 3) {
-          sparseDayHourFrame$isLastOHWithinNextThreeHour[entry] = 1
-        }
-      } else {
-        sparseDayHourFrame$isLastOHWithinNextSixHour[entry] = 1
-      }
-      
       sparseDayHourFrame$hourOfDay[entry] = time$hour
-      
       if (time$hour <= 11) {
         sparseDayHourFrame$morning[entry] = 1
       } else if (time$hour <= 15) {
@@ -159,16 +121,14 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
     } else if (sparseDayHourFrame$day[entry] == 0) {
       sparseDayHourFrame$sunday[entry] = 1
     }
-    
-    
     ###### Calculates average serve time that day ######
     otherEntriesInDay = which(substr(rownames(sparseDayHourFrame),0,6)==substr(rownames(sparseDayHourFrame)[entry],0,6))
     ServeTimesThatDay = sparseDayHourFrame[otherEntriesInDay,"average_serve_time"]
     ServeTimesThatDay = ServeTimesThatDay[ServeTimesThatDay != 0]
     avgServeTime = -1
-    ### If someone queued up and literally no one served them the entire day, this is kinda bad
+    ### If someone queued up and literally no one served them the entire day, this is kinda bad, but we just say 15 cuz y not
     if (length(ServeTimesThatDay) < 1) {
-      avgServeTime = 100
+      avgServeTime = 15
     } else {
       avgServeTime = mean(ServeTimesThatDay)
     }
@@ -178,7 +138,7 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
     DaysAfterPrevDue = -1
     DaysBeforeNextDue = -1 
     WeekNum = 1
-   
+    
     for (weekIndex in 1:length(weekList)) {
       weekDate = as.POSIXct(weekList[weekIndex][1,1])
       days = weekDate - time
@@ -253,14 +213,22 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
     sparseDayHourFrame$daysUntilNextAssnDue[entry] = DaysBeforeNextDue
     sparseDayHourFrame$weekNum[entry] = WeekNum
     sparseDayHourFrame$daysTilExam[entry] = daysTilExam
+    day = (sparseDayHourFrame$day[entry]-1)
+    if (day == -1) {
+      day = 6
+    }
+    sparseDayHourFrame$index[entry] = ((WeekNum)%%2)*7*24 + day*24 + sparseDayHourFrame$hourOfDay[entry]
   }
+  sparseDayHourFrame = subset(sparseDayHourFrame,hourOfDay > 8)
+  sparseDayHourFrame = subset(sparseDayHourFrame,hourOfDay < 22)
+  
   sparseDayHourFrame$NumStudents = ClassesList[class,"NumStudents"]
   sparseDayHourFrame$InstructorRating = ClassesList[class,"InstructorRating"]
   sparseDayHourFrame$AvgHrsSpent = ClassesList[class,"AvgHrsSpent"]
   sparseDayHourFrame$ProportionFrosh = ClassesList[class,"ProportionFrosh"]
   sparseDayHourFrame$ProportionGrads = ClassesList[class,"ProportionGrads"]
   sparseDayHourFrame$ProportionPhDs = ClassesList[class,"ProportionPhDs"]
-  nameAppend = ""
+  nameAppend = "FullDataToPredict/Full"
   if (MetaInterval != 1) {
     nameAppend = paste0(MetaInterval,"HrEntry")
   }
@@ -273,5 +241,5 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
 MetaInterval = 1
 for (class in c(1:nrow(ClassesList))) {
   print(class)
-  getQueueStatus(class,Interval="hour",MetaInterval)
+  getQueueStatusFull(class,Interval="hour",MetaInterval)
 }
