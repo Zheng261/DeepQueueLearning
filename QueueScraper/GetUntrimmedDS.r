@@ -12,7 +12,6 @@ getQueueStatusFull <- function(class,Interval,MetaInterval = 1) {
   DayEnd = format(End,"%d")
   YearStart = format(Start,"%Y")
   YearEnd = format(End,"%Y")
-  
   site = paste0('http://queuestatus.com/queues/',Queue,'/statistics/get_chart_data?metrics%5B%5D=sign_ups&metrics%5B%5D=serves&metrics%5B%5D=servers&metrics%5B%5D=average_wait_time&metrics%5B%5D=average_serve_time&')
   URL = paste0(site,'increment=',Interval,'&start_time=',MonStart,"+",DayStart,"%2C+",YearStart,"&end_time=",MonEnd,"+",DayEnd,"%2C+",YearEnd)
   queueStatus = tryCatch(jsonlite::fromJSON(URL), error = function(e) NULL)
@@ -23,7 +22,6 @@ getQueueStatusFull <- function(class,Interval,MetaInterval = 1) {
   #### Takes away all entries where we have everything = 0 #####
   sparseDayHourFrame <- dayHourFrame
   #[apply(dayHourFrame, 1, function(x) { sum(x == 0) } ) != 5,]
-  sparseDayHourFrame$index = 0
   sparseDayHourFrame$day = 0
   sparseDayHourFrame$sign_ups = as.numeric(as.character(sparseDayHourFrame$sign_ups))
   sparseDayHourFrame$serves = as.numeric(as.character(sparseDayHourFrame$serves))
@@ -213,14 +211,10 @@ getQueueStatusFull <- function(class,Interval,MetaInterval = 1) {
     sparseDayHourFrame$daysUntilNextAssnDue[entry] = DaysBeforeNextDue
     sparseDayHourFrame$weekNum[entry] = WeekNum
     sparseDayHourFrame$daysTilExam[entry] = daysTilExam
-    day = (sparseDayHourFrame$day[entry]-1)
-    if (day == -1) {
-      day = 6
-    }
-    sparseDayHourFrame$index[entry] = ((WeekNum)%%2)*7*24 + day*24 + sparseDayHourFrame$hourOfDay[entry]
   }
   sparseDayHourFrame = subset(sparseDayHourFrame,hourOfDay > 8)
   sparseDayHourFrame = subset(sparseDayHourFrame,hourOfDay < 22)
+  sparseDayHourFrame = subset(sparseDayHourFrame,sunday == 0)
   
   sparseDayHourFrame$NumStudents = ClassesList[class,"NumStudents"]
   sparseDayHourFrame$InstructorRating = ClassesList[class,"InstructorRating"]
@@ -228,6 +222,15 @@ getQueueStatusFull <- function(class,Interval,MetaInterval = 1) {
   sparseDayHourFrame$ProportionFrosh = ClassesList[class,"ProportionFrosh"]
   sparseDayHourFrame$ProportionGrads = ClassesList[class,"ProportionGrads"]
   sparseDayHourFrame$ProportionPhDs = ClassesList[class,"ProportionPhDs"]
+  
+  sparseDayHourFrame$index = 0
+  for (entry in c(1:nrow(sparseDayHourFrame))) {
+    day = (sparseDayHourFrame$day[entry]-1)
+    if (day == -1) {
+      day = 6
+    }
+    sparseDayHourFrame$index[entry] = ((WeekNum)%%2)*7*24 + day*24 + sparseDayHourFrame$hourOfDay[entry]
+  }
   nameAppend = "FullDataToPredict/Full"
   if (MetaInterval != 1) {
     nameAppend = paste0(MetaInterval,"HrEntry")
