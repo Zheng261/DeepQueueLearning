@@ -31,7 +31,7 @@ def read_dataset(arr):
 		key = {k:v for k, v in enumerate(raw_data[0])}
 
 		# removes 0, sign_ups, serves, avg_wait_time, avg_serve_time, avg_day_serve_time, load_influx
-		toRemove = [0, 1, 2, 4, 5, 7, 8]
+		toRemove = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 37, 38, 39, 40]
 		for index in toRemove:
 			del key[index]
 
@@ -43,8 +43,8 @@ def read_dataset(arr):
 			y.append(load_influx)
 			X.append([float(d[f]) for f in key.keys()])
 
-		# for i, j in enumerate(raw_data[0]):
-		# 	print (i, j)
+		for i, j in enumerate(raw_data[0]):
+			print (i, j)
 	X, y = np.asarray(X), np.asarray(y).reshape((-1, 1))
 	return X, y
 
@@ -68,6 +68,8 @@ if __name__ == "__main__":
 	clf.fit(X_train, y_train)
 
 	print ("Important features:")
+	for i, e in clf.feature_importances_:
+		print (i, e)
 	print(clf.feature_importances_)
 
 	print ("Predicted:")
