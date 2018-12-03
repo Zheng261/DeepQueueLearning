@@ -36,6 +36,7 @@ getQueueStatusFull <- function(class,Interval,MetaInterval = 1) {
   sparseDayHourFrame$weekNum = 0
   sparseDayHourFrame$hourOfDay = 0
   
+  
   sparseDayHourFrame$monday = 0
   sparseDayHourFrame$tuesday = 0
   sparseDayHourFrame$wednesday = 0
@@ -69,7 +70,7 @@ getQueueStatusFull <- function(class,Interval,MetaInterval = 1) {
   sparseDayHourFrame$L5daysTilExam = 0
   sparseDayHourFrame$L3daysTilExam = 0
   sparseDayHourFrame$L1daysTilExam = 0
-  
+
   #### Week numbers of the year ####
   weekList <- ClassesList[class,c(3:13)]
   weekList <- weekList[which(weekList[1,] != "2030-4-20")]
@@ -214,7 +215,7 @@ getQueueStatusFull <- function(class,Interval,MetaInterval = 1) {
   }
   sparseDayHourFrame = subset(sparseDayHourFrame,hourOfDay > 8)
   sparseDayHourFrame = subset(sparseDayHourFrame,hourOfDay < 22)
-  sparseDayHourFrame = subset(sparseDayHourFrame,sunday == 0)
+  sparseDayHourFrame = subset(sparseDayHourFrame,saturday == 0)
   
   sparseDayHourFrame$NumStudents = ClassesList[class,"NumStudents"]
   sparseDayHourFrame$InstructorRating = ClassesList[class,"InstructorRating"]
