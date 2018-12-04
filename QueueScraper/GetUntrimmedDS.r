@@ -127,7 +127,7 @@ getQueueStatusFull <- function(class,Interval,MetaInterval = 1) {
     avgServeTime = -1
     ### If someone queued up and literally no one served them the entire day, this is kinda bad, but we just say 15 cuz y not
     if (length(ServeTimesThatDay) < 1) {
-      avgServeTime = 15
+      avgServeTime = -1
     } else {
       avgServeTime = mean(ServeTimesThatDay)
     }
