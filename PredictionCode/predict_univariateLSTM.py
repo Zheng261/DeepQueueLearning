@@ -8,7 +8,10 @@ from keras.layers import Dense
 from keras.layers import LSTM
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
+import pylab
 
+from pylab import rcParams
+rcParams['figure.figsize'] = 7, 4
  
 
 # seed = 221
@@ -187,7 +190,8 @@ testPredictPlot = numpy.empty_like(dataset)
 testPredictPlot[:, :] = numpy.nan
 testPredictPlot[len(trainPredict)+(look_back*2)+1:len(dataset)-1, :] = testPredict
 # plot baseline and predictions
-plt.plot(scaler.inverse_transform(dataset))
-plt.plot(trainPredictPlot)
-plt.plot(testPredictPlot)
+plt.plot(scaler.inverse_transform(dataset), label='ground truth')
+plt.plot(trainPredictPlot, label = 'train predictions')
+plt.plot(testPredictPlot, label='test predictions')
+pylab.legend(loc='upper left')
 plt.show()
