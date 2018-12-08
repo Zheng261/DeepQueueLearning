@@ -1,4 +1,5 @@
 import csv
+import itertools
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -14,10 +15,13 @@ from sklearn.datasets import make_classification
 seed = 221
 np.random.seed(221)
 
-NUM_BINS = 20
+NUM_BINS = 7
 
 train_arr = ["./../Datasets/Regular/CS107Autumn2017dataset.csv", "./../Datasets/Regular/CS107Autumn2018dataset.csv", \
-"./../Datasets/Regular/CS107Spring2017dataset.csv", "./../Datasets/Regular/CS107Winter2018dataset.csv", "./../Datasets/Regular/CS107Spring2018dataset.csv"
+"./../Datasets/Regular/CS107Spring2017dataset.csv", "./../Datasets/Regular/CS107Winter2018dataset.csv", \
+"./../Datasets/Regular/CS110Autumn2018dataset.csv", "./../Datasets/Regular/CS110Spring2018dataset.csv", \
+"./../Datasets/Regular/CS161Autumn2017dataset.csv", "./../Datasets/Regular/CS161Spring2017dataset.csv", \
+"./../Datasets/Regular/CS229Autumn2018dataset.csv", "./../Datasets/Regular/CS107Spring2018dataset.csv"
 ]
 
 
@@ -49,6 +53,41 @@ def read_dataset(arr):
 	return X, y
 
 
+def plot_confusion_matrix(cm, classes,
+                          normalize=False,
+                          title='Confusion matrix',
+                          cmap=plt.cm.Blues):
+    """
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    """
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print("Normalized confusion matrix")
+    else:
+        print('Confusion matrix, without normalization')
+
+    print(cm)
+
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    plt.title(title)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes, rotation=45)
+    plt.yticks(tick_marks, classes)
+
+    fmt = '.2f' if normalize else 'd'
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], fmt),
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black")
+
+    plt.ylabel('True label')
+    plt.xlabel('Predicted label')
+    plt.tight_layout()
+
+
 # Logspace from 1 to 1024, 10 bins
 
 if __name__ == "__main__":
@@ -62,15 +101,15 @@ if __name__ == "__main__":
 
 	y = y.reshape((-1, ))
 
-	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1, random_state=221)
+	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=221)
 
-	clf = RandomForestClassifier(n_estimators=100, random_state=221)
+	clf = RandomForestClassifier(n_estimators=1000, random_state=221)
 	clf.fit(X_train, y_train)
 
-	print ("Important features:")
-	for i, e in clf.feature_importances_:
-		print (i, e)
-	print(clf.feature_importances_)
+	# print ("Important features:")
+	# for i, e in clf.feature_importances_:
+	# 	print (i, e)
+	# print(clf.feature_importances_)
 
 	print ("Predicted:")
 	predicted = clf.predict(X_test)
@@ -81,4 +120,18 @@ if __name__ == "__main__":
 
 	cm = metrics.confusion_matrix(y_test, predicted)
 	print("Confusion matrix:\n%s" % cm)
+	np.set_printoptions(precision=2)
+
+	# Plot non-normalized confusion matrix
+	plt.figure()
+	plot_confusion_matrix(cm, classes=np.around(bins, decimals=1),
+	                      title='RF Confusion matrix, without normalization')
+
+	# Plot normalized confusion matrix
+	plt.figure()
+	plot_confusion_matrix(cm, classes=np.around(bins, decimals=1), normalize=True,
+	                      title='Normalized RF confusion matrix')
+
+	plt.show()
+
 
