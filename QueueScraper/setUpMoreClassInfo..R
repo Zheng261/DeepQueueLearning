@@ -162,23 +162,6 @@ ClassesListModel[index,"ProportionGrads"] = 0.40
 ClassesListModel[index,"ProportionPhDs"] = 0.10
 NewClassesList = rbind(NewClassesList,ClassesListModel)
 
-###### CS221 Autumn 2017 #######
-##### Assignments expected to be same as 2018 #####
-ClassesListModel = ClassesList[1,]
-ClassesListModel[index,c("ClassNum","QuarterYear")]= c("CS221","Autumn2017")
-ClassesListModel[index,"W1"] = YearList[which(YearList[,"QuarterYear"]==ClassesListModel[index,"QuarterYear"]),c("W1")]
-ClassesListModel[index,c("MidtermDate1","MidtermDate2")] = c("2017-11-27","2030-4-20")
-ClassesListModel[index,"FinalsDate"] = c("2017-12-14")
-ClassesListModel[index,c(14:23)] = c("2017-10-3","2017-10-9","2017-10-16","2017-10-23","2017-10-30","2017-11-6","2017-11-13","2017-12-7","2030-4-20","2030-4-20")
-ClassesListModel[index,c(3:13)] = findAllWeeks(ClassesListModel[index,"W1"],as.logical(YearList[which(YearList[,"QuarterYear"]==ClassesListModel[index,"QuarterYear"]),c("W9break?")]))
-ClassesListModel[index,"QueueStatus"] = 129
-ClassesListModel[index,"NumStudents"] = 438
-ClassesListModel[index,"InstructorRating"] = 4.5
-ClassesListModel[index,"AvgHrsSpent"] = 12.2
-ClassesListModel[index,"ProportionFrosh"] = 0.02
-ClassesListModel[index,"ProportionGrads"] = 0.40
-ClassesListModel[index,"ProportionPhDs"] = 0.10
-NewClassesList = rbind(NewClassesList,ClassesListModel)
 
 ###### CS221 Autumn 2016 #######
 ##### Assignments expected to be same as 2018 #####
@@ -198,5 +181,4 @@ ClassesListModel[index,"ProportionGrads"] = 0.40
 ClassesListModel[index,"ProportionPhDs"] = 0.10
 NewClassesList = rbind(NewClassesList,ClassesListModel)
 ClassesList = rbind(ClassesList,NewClassesList)
-
 

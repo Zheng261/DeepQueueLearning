@@ -32,7 +32,7 @@ train_arr = ["./../Datasets/Regular/CS107Autumn2017dataset.csv", "./../Datasets/
 ]
 
 #test_arr = ["./../Datasets/Regular/CS107Spring2017dataset.csv"]
-test_arr = ["./../Datasets/FullDataToPredict/FullCS107Spring2017dataset.csv"]
+test_arr = ["./../Datasets/FullDataToPredict/FullCS224NWinter2018dataset.csv"]
 
 # best: spring 2017
 """
@@ -211,7 +211,7 @@ if __name__ == "__main__":
 	pylab.legend(loc='upper left')
 	plt.show()
 
-	np.save("FullCS107Spring2017dataset.npy", yhat)
+	np.save("CS224NWinter2018dataset.csv.npy", yhat)
 	rmse = np.sqrt(mean_squared_error(yhat, y_test))
 	print('Test RMSE: %.3f' % rmse)
 
