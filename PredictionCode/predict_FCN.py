@@ -24,15 +24,19 @@ np.random.seed(221)
 
 SMOOTHING_LEN = 15
 
+# see how i loop through train folder below in read_dataset
+
 train_arr = ["./../Datasets/Regular/CS107Autumn2017dataset.csv", "./../Datasets/Regular/CS107Autumn2018dataset.csv", \
 "./../Datasets/Regular/CS107Spring2018dataset.csv", "./../Datasets/Regular/CS107Winter2018dataset.csv", \
 "./../Datasets/Regular/CS110Autumn2018dataset.csv", "./../Datasets/Regular/CS110Spring2018dataset.csv", \
 "./../Datasets/Regular/CS161Autumn2017dataset.csv", "./../Datasets/Regular/CS161Spring2017dataset.csv", \
-"./../Datasets/Regular/CS229Autumn2018dataset.csv"
+"./../Datasets/Regular/CS229Autumn2018dataset.csv", "./../Datasets/Regular/CS221Autumn2016dataset.csv", \
+"./../Datasets/Regular/CS221Autumn2017dataset.csv", "./../Datasets/Regular/CS224NWinter2018dataset.csv", \
+"./../Datasets/Regular/CS224NWinter2017dataset.csv"
 ]
 
 #test_arr = ["./../Datasets/Regular/CS107Spring2017dataset.csv"]
-test_arr = ["./../Datasets/FullDataToPredict/FullCS224NWinter2018dataset.csv"]
+test_arr = ["./../Datasets/FullDataToPredict/FullCS107Spring2017dataset.csv"]
 
 # best: spring 2017
 """
@@ -52,28 +56,7 @@ DYY_Huber_32: 47.03
 DYY_Huber_40: 51.458
 DYY_Huber_100: 65.448
 
-
 """
-# test_arr = ["./../Datasets/FullDataToPredict/FullCS107Spring2018dataset.csv"]
-
-# train_arr = ["./../Datasets/DailyData/CS107Autumn2017dataset.csv", "./../Datasets/DailyData/CS107Autumn2018dataset.csv", \
-# "./../Datasets/DailyData/CS107Spring2017dataset.csv", "./../Datasets/DailyData/CS107Winter2018dataset.csv", \
-# "./../Datasets/DailyData/CS110Autumn2018dataset.csv", "./../Datasets/DailyData/CS110Spring2018dataset.csv", \
-# "./../Datasets/DailyData/CS161Autumn2017dataset.csv", "./../Datasets/DailyData/CS161Spring2017dataset.csv", \
-# "./../Datasets/DailyData/CS229Autumn2018dataset.csv"
-# ]
-
-# test_arr = ["./../Datasets/DailyData/CS107Spring2018dataset.csv"]
-
-# train_arr = ["./../Datasets/ToDData/CS107Autumn2017dataset.csv", "./../Datasets/ToDData/CS107Autumn2018dataset.csv", \
-# "./../Datasets/ToDData/CS107Spring2017dataset.csv", "./../Datasets/ToDData/CS107Winter2018dataset.csv", \
-# "./../Datasets/ToDData/CS110Autumn2018dataset.csv", "./../Datasets/ToDData/CS110Spring2018dataset.csv", \
-# "./../Datasets/ToDData/CS161Autumn2017dataset.csv", "./../Datasets/ToDData/CS161Spring2017dataset.csv", \
-# "./../Datasets/ToDData/CS229Autumn2018dataset.csv"
-# ]
-
-# test_arr = ["./../Datasets/ToDData/CS107Spring2018dataset.csv"]
-
 
 
 def read_dataset(arr):
@@ -134,13 +117,20 @@ def read_dataset_test(arr):
 		for i, j in enumerate(raw_data[0]):
 			print (i, j)
 
-
 			
 	X, y = np.asarray(X), np.asarray(y).reshape((-1, 1))
 	return X, y
 
+# 32 original
+"""
+20 - 54.2
+22 - 54.67
+15 - 56.2
+18: 53.8
+19: 54.3
+"""
 
-def sqHuber(yHat, y, delta=32):
+def sqHuber(yHat, y, delta=18):
     return K.tf.where(K.abs(y-yHat) < delta,.5*(y-yHat)**2 , K.sqrt(delta*(K.abs(y-yHat)-0.5*delta)))
 
 def Huber(yHat, y, delta=1):
@@ -154,7 +144,7 @@ def create_model():
 	model.summary()
 
 	# adam = optimizers.Adam(lr=0.001, decay=0.01)
-	model.compile(loss='mse', optimizer='adam', metrics=['mse'])
+	model.compile(loss=sqHuber, optimizer='adam', metrics=['mse'])
 	return model
 
 def smooth(x,window_len=11,window='hanning'):
@@ -176,9 +166,9 @@ def smooth(x,window_len=11,window='hanning'):
 if __name__ == "__main__":
 
 	X_train, y_train = read_dataset(train_arr)
-	# X_test, y_test = read_dataset_test(test_arr)
-	#X_test, y_test = read_dataset(test_arr)
 	X_test, y_test = read_dataset_test(test_arr)
+	#X_test, y_test = read_dataset(test_arr)
+
 
 	y_train_smooth = smooth(y_train.reshape((-1)),SMOOTHING_LEN)[:len(y_train)]
 	y_test_smooth = smooth(y_test.reshape((-1)),SMOOTHING_LEN)[:len(y_test)]
@@ -211,8 +201,8 @@ if __name__ == "__main__":
 	pylab.legend(loc='upper left')
 	plt.show()
 
-	np.save("CS224NWinter2018dataset.csv.npy", yhat)
-	rmse = np.sqrt(mean_squared_error(yhat, y_test))
+	np.save("./../output/CS224NWinter2018dataset.csv.npy", yhat)
+	rmse = np.sqrt(mean_squared_error(yhat, y_test_smooth))
 	print('Test RMSE: %.3f' % rmse)
 
 	# print('Test loss:', score[0])
