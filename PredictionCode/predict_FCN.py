@@ -31,7 +31,8 @@ train_arr = ["./../Datasets/Regular/CS107Autumn2017dataset.csv", "./../Datasets/
 "./../Datasets/Regular/CS229Autumn2018dataset.csv"
 ]
 
-test_arr = ["./../Datasets/Regular/CS107Spring2017dataset.csv"]
+#test_arr = ["./../Datasets/Regular/CS107Spring2017dataset.csv"]
+test_arr = ["./../Datasets/FullDataToPredict/FullCS107Spring2017dataset.csv"]
 
 # best: spring 2017
 """
@@ -118,7 +119,7 @@ def read_dataset_test(arr):
 
 		# removes 0, sign_ups, serves, servers (3), avg_wait_time, avg_serve_time, avg_day_serve_time, load_influx,
 		# daysAfterprevdue, daysUntilNextdue, daysTillExam, hourOfDay
-		toRemove = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 43]
+		toRemove = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13,43]
 		for index in toRemove:
 			del key[index]
 
@@ -176,7 +177,9 @@ if __name__ == "__main__":
 
 	X_train, y_train = read_dataset(train_arr)
 	# X_test, y_test = read_dataset_test(test_arr)
-	X_test, y_test = read_dataset(test_arr)
+	#X_test, y_test = read_dataset(test_arr)
+	X_test, y_test = read_dataset_test(test_arr)
+
 	y_train_smooth = smooth(y_train.reshape((-1)),SMOOTHING_LEN)[:len(y_train)]
 	y_test_smooth = smooth(y_test.reshape((-1)),SMOOTHING_LEN)[:len(y_test)]
 
@@ -208,7 +211,7 @@ if __name__ == "__main__":
 	pylab.legend(loc='upper left')
 	plt.show()
 
-	#np.save("FullCS107Spring2018dataset.npy", yhat)
+	np.save("FullCS107Spring2017dataset.npy", yhat)
 	rmse = np.sqrt(mean_squared_error(yhat, y_test))
 	print('Test RMSE: %.3f' % rmse)
 

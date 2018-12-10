@@ -161,7 +161,6 @@ ClassesListModel[index,"ProportionFrosh"] = 0.02
 ClassesListModel[index,"ProportionGrads"] = 0.40
 ClassesListModel[index,"ProportionPhDs"] = 0.10
 NewClassesList = rbind(NewClassesList,ClassesListModel)
-ClassesList = rbind(ClassesList,NewClassesList)
 
 ###### CS221 Autumn 2017 #######
 ##### Assignments expected to be same as 2018 #####
@@ -180,8 +179,6 @@ ClassesListModel[index,"ProportionFrosh"] = 0.02
 ClassesListModel[index,"ProportionGrads"] = 0.40
 ClassesListModel[index,"ProportionPhDs"] = 0.10
 NewClassesList = rbind(NewClassesList,ClassesListModel)
-ClassesList = rbind(ClassesList,NewClassesList)
-
 
 ###### CS221 Autumn 2016 #######
 ##### Assignments expected to be same as 2018 #####
@@ -201,6 +198,5 @@ ClassesListModel[index,"ProportionGrads"] = 0.40
 ClassesListModel[index,"ProportionPhDs"] = 0.10
 NewClassesList = rbind(NewClassesList,ClassesListModel)
 ClassesList = rbind(ClassesList,NewClassesList)
-
 
 
