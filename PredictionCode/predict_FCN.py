@@ -31,8 +31,8 @@ train_arr = ["./../Datasets/Regular/CS107Autumn2017dataset.csv", "./../Datasets/
 "./../Datasets/Regular/CS110Autumn2018dataset.csv", "./../Datasets/Regular/CS110Spring2018dataset.csv", \
 "./../Datasets/Regular/CS161Autumn2017dataset.csv", "./../Datasets/Regular/CS161Spring2017dataset.csv", \
 "./../Datasets/Regular/CS229Autumn2018dataset.csv", "./../Datasets/Regular/CS221Autumn2016dataset.csv", \
-"./../Datasets/Regular/CS221Autumn2017dataset.csv", "./../Datasets/Regular/CS224NWinter2018dataset.csv", \
-
+"./../Datasets/Regular/CS221Autumn2017dataset.csv"\
+#"./../Datasets/Regular/CS224NWinter2018dataset.csv"
 ]
 #test_arr = ["./../Datasets/Regular/CS107Spring2017dataset.csv"]
 test_arr = ["./../Datasets/FullDataToPredict/FullCS224NWinter2017dataset.csv"]
