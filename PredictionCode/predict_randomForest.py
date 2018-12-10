@@ -92,6 +92,7 @@ def plot_confusion_matrix(cm, classes,
 
 if __name__ == "__main__":
 	X, y_continuous = read_dataset(train_arr)
+	print (np.max(y_continuous))
 
 	bins = np.logspace(0, 10, num=NUM_BINS, base = 2)
 
@@ -103,7 +104,7 @@ if __name__ == "__main__":
 
 	X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=221)
 
-	clf = RandomForestClassifier(n_estimators=1000, random_state=221)
+	clf = RandomForestClassifier(n_estimators=10000, random_state=221)
 	clf.fit(X_train, y_train)
 
 	# print ("Important features:")
@@ -117,7 +118,7 @@ if __name__ == "__main__":
 
 	print ("Accuracy score:")
 	print (metrics.accuracy_score(predicted, y_test))
-
+	raise
 	cm = metrics.confusion_matrix(y_test, predicted)
 	print("Confusion matrix:\n%s" % cm)
 	np.set_printoptions(precision=2)

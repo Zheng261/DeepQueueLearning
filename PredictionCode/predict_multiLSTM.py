@@ -14,7 +14,7 @@ import pandas as pd
 seed = 221
 np.random.seed(221)
 
-WINDOW_LEN = 1
+WINDOW_LEN = 32
 
 train_arr = ["./../Datasets/Regular/CS107Autumn2017dataset.csv", "./../Datasets/Regular/CS107Autumn2018dataset.csv", \
 "./../Datasets/Regular/CS107Spring2017dataset.csv", "./../Datasets/Regular/CS107Winter2018dataset.csv", \
@@ -123,7 +123,7 @@ if __name__ == "__main__":
 			test_X[i+1][0] = predicted
 
 	# calculate RMSE
-
+	print (yhat)
 	rmse = np.sqrt(mean_squared_error(yhat, true_test_y))
 	print('Test RMSE: %.3f' % rmse)
 
