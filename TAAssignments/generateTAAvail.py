@@ -23,7 +23,6 @@ def generateTAAvail(numTAs):
 	TAtoAvailDays = collections.defaultdict(lambda:[])
 	for i in range(numTAs):
 		TAtoAvailDays[i] = []
-
 	numDays = numWeeks*daysPerWeek
 	for i in range(numTAs):
 		classTimes = generateRandomClassTimes()
