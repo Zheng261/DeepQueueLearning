@@ -21,7 +21,31 @@ def generateTAAvail(numTAs, start, end, numWeeks, daysPerWeek, possClassLengths,
 				hoursDead += range(classStart+24*time,classStart+classLength+1+24*time)
 				hoursDead += range(classStart+24*time+7*24,classStart+classLength+1+24*time+7*24)
 		return set(hoursDead)
+	# def generateOffDays():
+	# 	#days = range(1,daysPerWeek+1)
+	# 	#offDay = random.sample(days,1)[0]
+	# 	offDays = set([offDay+(x*7) for x in range(numWeeks)])
+	# 	return offDays
 
+
+	# TAtoAvailDays = collections.defaultdict(lambda:[])
+	# for i in range(numTAs):
+	# 	TAtoAvailDays[i] = []
+
+	# # numDays = numWeeks*daysPerWeek
+	# numDays = 1
+	# for i in range(numTAs):
+	# 	# classTimes = generateRandomClassTimes()
+	# 	# offDays = generateOffDays()
+	# 	for day in range(numDays):
+	# 		#if day not in offDays:
+	# 		for times in range(start,end+1):
+	# 			proposedTime = day*24+times
+	# 			#	if (proposedTime not in classTimes):
+	# 			TAtoAvailDays[i].append(proposedTime)
+	# # 	print(len(TAtoAvailDays[i]))
+	# # print("TA availability: {}".format(TAtoAvailDays))
+	# return TAtoAvailDays
 	def generateOffDays():
 		#days = range(1,daysPerWeek+1)
 		#offDay = random.sample(days,1)[0]
@@ -45,7 +69,7 @@ def generateTAAvail(numTAs, start, end, numWeeks, daysPerWeek, possClassLengths,
 						TAtoAvailDays[i].append(proposedTime)
 	# 	print(len(TAtoAvailDays[i]))
 	# print("TA availability: {}".format(TAtoAvailDays))
-	return TAtoAvailDays
+	return TAtoAvailDays	
 
 
 
