@@ -247,3 +247,4 @@ for (class in c(1:nrow(ClassesList))) {
   print(class)
   getQueueStatusFull(class,Interval="hour",MetaInterval)
 }
+

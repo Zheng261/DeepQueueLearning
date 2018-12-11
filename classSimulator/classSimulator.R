@@ -1,0 +1,3 @@
+SimulateNewClass <- function() {
+  
+}
