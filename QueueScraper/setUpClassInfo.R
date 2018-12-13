@@ -29,9 +29,13 @@ YearList[4,] = c("Winter2018",'2018-1-8','2018-3-22',FALSE)
 YearList[5,] = c("Spring2018",'2018-4-2','2018-6-4',FALSE)
 YearList[6,] = c("Autumn2018",'2018-9-24','2018-12-3',TRUE)
 
+
 YearList[7,] = c("Autumn2016",'2016-9-26','2018-12-6',TRUE)
-YearList[8,] = c("Winter2016",'2017-1-9','2018-3-25',TRUE)
-YearList[9,] = c("Spring2016",'2017-4-3','2018-6-14',TRUE)
+YearList[8,] = c("Winter2016",'2017-1-9','2018-3-25',FALSE)
+YearList[9,] = c("Spring2016",'2017-4-3','2018-6-14',FALSE)
+
+YearList[10,] = c("Winter2019",'2019-1-9','2019-3-25',FALSE)
+YearList[11,] = c("Spring2019",'2019-4-3','2019-6-5',FALSE)
 
 #### List of classes we care about ####
 ClassesList = data.frame(matrix(ncol=33,nrow=5))
