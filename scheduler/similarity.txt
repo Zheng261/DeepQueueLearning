@@ -1,0 +1,3 @@
+Cosine similarity, opt wrt predsa: 0.7889584401421103
+Cosine similarity, opt wrt actual: 0.20540796149191223
+Cosine similarity, servers wrt actual: 0.7940821607429407

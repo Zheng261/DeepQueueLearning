@@ -1,0 +1,4 @@
+Cosine similarity, predicted: 0.45487528370192387
+Cosine similarity, actual: 0.6879722909850531
+(zoomed)Cosine similarity, predicted: 0.5380519484396925
+(zoomed) Cosine similarity, actual: 0.7546503903592559
