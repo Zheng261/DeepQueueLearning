@@ -1,0 +1,4 @@
+#metrics when trained on log of LI
+
+Test RMSE: 130.727
+
