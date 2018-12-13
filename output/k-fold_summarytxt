@@ -1,0 +1,44 @@
+Huber with TA + log
+
+Leave-one-out RMSEs: [97.72625628635447, 128.63805264266034, 88.99505951263973, 101.15775689352571, 132.68597429184342, 157.2042023513762, 116.50281793454356, 70.69795216484236], mean: 111.70100900972324
+Valid sets:  ['./../Datasets/Regular/CS110Autumn2018dataset.csv', './../Datasets/Regular/CS107Spring2018dataset.csv', './../Datasets/Regular/CS221Autumn2016dataset.csv', './../Datasets/Regular/CS161Autumn2017dataset.csv', './../Datasets/Regular/CS124Winter2018dataset.csv', './../Datasets/Regular/CS124Winter2017dataset.csv', './../Datasets/Regular/CS224NWinter2017dataset.csv', './../Datasets/Regular/CS107Autumn2018dataset.csv']
+
+sqHuber with TA + log
+
+Leave-one-out RMSEs: [171.880404055351, 110.84091155497485, 159.26782737996, 78.66278939470725, 124.74445551164538, 131.40989274106514, 102.97775532752632, 90.40755877632967], mean: 121.27394934269496
+Valid sets:  ['./../Datasets/Regular/CS107Autumn2017dataset.csv', './../Datasets/Regular/CS107Winter2018dataset.csv', './../Datasets/Regular/CS124Winter2017dataset.csv', './../Datasets/Regular/CS107Autumn2018dataset.csv', './../Datasets/Regular/CS107Spring2018dataset.csv', './../Datasets/Regular/CS124Winter2018dataset.csv', './../Datasets/Regular/CS161Autumn2017dataset.csv', './../Datasets/Regular/CS224NWinter2018dataset.csv']
+
+MSE w TA + log
+
+Validation RMSE: 93.078
+Leave-one-out RMSEs: [93.39697917949425, 128.73935972024663, 154.67074080443686, 160.2599647164156, 99.41446366702488, 111.07752004868955, 83.1793036135316, 93.0783608170247], mean: 115.477086570858
+Valid sets:  ['./../Datasets/Regular/CS221Autumn2016dataset.csv', './../Datasets/Regular/CS107Spring2018dataset.csv', './../Datasets/Regular/CS221Autumn2017dataset.csv', './../Datasets/Regular/CS124Winter2017dataset.csv', './../Datasets/Regular/CS110Autumn2018dataset.csv', './../Datasets/Regular/CS107Winter2018dataset.csv', './../Datasets/Regular/CS107Autumn2018dataset.csv', './../Datasets/Regular/CS224NWinter2018dataset.csv']
+
+MAE w TA + log
+Validation RMSE: 71.357
+Leave-one-out RMSEs: [165.6755036470699, 157.10801777657085, 126.50599349802815, 98.32892803386216, 106.45507300487198, 119.9925275070754, 105.49703279946074, 71.3570994816126], mean: 118.86502196856897
+Valid sets:  ['./../Datasets/Regular/CS107Autumn2017dataset.csv', './../Datasets/Regular/CS124Winter2017dataset.csv', './../Datasets/Regular/CS124Winter2018dataset.csv', './../Datasets/Regular/CS110Autumn2018dataset.csv', './../Datasets/Regular/CS161Autumn2017dataset.csv', './../Datasets/Regular/CS224NWinter2017dataset.csv', './../Datasets/Regular/CS224NWinter2018dataset.csv', './../Datasets/Regular/CS107Autumn2018dataset.csv']
+Mean training error: 1.1765377501494978
+
+Huber_log
+Leave-one-out RMSEs: [72.57311754106036, 120.78404977059954, 123.69883291828859, 98.12457082456316, 164.72056028004823, 147.86415932490152, 104.48487316190412, 114.33113798342775], mean: 118.32266272559916
+Valid sets:  ['./../Datasets/Regular/CS221Autumn2016dataset.csv', './../Datasets/Regular/CS107Spring2018dataset.csv', './../Datasets/Regular/CS224NWinter2017dataset.csv', './../Datasets/Regular/CS161Spring2017dataset.csv', './../Datasets/Regular/CS107Autumn2017dataset.csv', './../Datasets/Regular/CS221Autumn2017dataset.csv', './../Datasets/Regular/CS161Autumn2017dataset.csv', './../Datasets/Regular/CS107Winter2018dataset.csv']
+Mean training error: 0.9012786380662714
+
+sqHuber_log
+
+Leave-one-out RMSEs: [170.70628169760315, 75.01206765482218, 141.6045401848529, 100.8624907900848, 122.94121750710386, 106.28070660156256, 136.49912172834723, 154.63421727319616], mean: 126.06758042969659
+Valid sets:  ['./../Datasets/Regular/CS107Autumn2017dataset.csv', './../Datasets/Regular/CS107Autumn2018dataset.csv', './../Datasets/Regular/CS221Autumn2017dataset.csv', './../Datasets/Regular/CS224NWinter2018dataset.csv', './../Datasets/Regular/CS107Spring2018dataset.csv', './../Datasets/Regular/CS161Autumn2017dataset.csv', './../Datasets/Regular/CS124Winter2018dataset.csv', './../Datasets/Regular/CS124Winter2017dataset.csv']
+Mean training error: 1.3315834761708758 
+
+MSE_log
+
+Leave-one-out RMSEs: [176.81795403542017, 102.91213409093265, 101.04278936674643, 161.6951545448908, 134.46881302868326, 110.03194687187614, 99.43305846145472, 74.19462385045308], mean: 120.07455928130716
+Valid sets:  ['./../Datasets/Regular/CS107Autumn2017dataset.csv', './../Datasets/Regular/CS224NWinter2018dataset.csv', './../Datasets/Regular/CS161Autumn2017dataset.csv', './../Datasets/Regular/CS124Winter2017dataset.csv', './../Datasets/Regular/CS107Spring2018dataset.csv', './../Datasets/Regular/CS110Autumn2018dataset.csv', './../Datasets/Regular/CS161Spring2017dataset.csv', './../Datasets/Regular/CS107Autumn2018dataset.csv']
+Mean training error: 2.8879712360306464
+
+MAE_log
+
+Leave-one-out RMSEs: [111.73444966748136, 123.69995907811312, 105.88722064088743, 105.86843406555, 101.87683032148013, 76.135834458207, 76.36152329246825, 147.32730996469385], mean: 106.11144518611015
+Valid sets:  ['./../Datasets/Regular/CS107Winter2018dataset.csv', './../Datasets/Regular/CS224NWinter2017dataset.csv', './../Datasets/Regular/CS110Autumn2018dataset.csv', './../Datasets/Regular/CS161Autumn2017dataset.csv', './../Datasets/Regular/CS224NWinter2018dataset.csv', './../Datasets/Regular/CS221Autumn2016dataset.csv', './../Datasets/Regular/CS107Autumn2018dataset.csv', './../Datasets/Regular/CS221Autumn2017dataset.csv']
+Mean training error: 1.2886113859007557
