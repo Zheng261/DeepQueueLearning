@@ -271,7 +271,7 @@ getQueueStatus <- function(class,Interval,MetaInterval = 1) {
 }
 
 MetaInterval = 1
-for (class in c(1:nrow(ClassesList))) {
+for (class in c(13:nrow(ClassesList))) {
   print(class)
   getQueueStatus(class,Interval="hour",MetaInterval)
 }
