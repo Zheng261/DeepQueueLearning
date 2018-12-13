@@ -47,3 +47,19 @@ Huber
 Leave-one-out RMSEs: [129.7591788947341, 102.71383399480975, 126.15144388136032, 153.79547609091105, 99.78017110921947, 72.87321371146373, 97.98184376810735, 92.71492514462187], mean: 109.47126082440344
 Valid sets:  ['./../Datasets/Regular/CS124Winter2018dataset.csv', './../Datasets/Regular/CS161Autumn2017dataset.csv', './../Datasets/Regular/CS107Spring2018dataset.csv', './../Datasets/Regular/CS124Winter2017dataset.csv', './../Datasets/Regular/CS224NWinter2018dataset.csv', './../Datasets/Regular/CS221Autumn2016dataset.csv', './../Datasets/Regular/CS110Autumn2018dataset.csv', './../Datasets/Regular/CS161Spring2017dataset.csv']
 Mean training error: 70.80652784976087
+
+sqHuber
+Leave-one-out RMSEs: [92.34708605842347, 162.03781384803042, 109.33898882370653, 168.1283799639108, 105.26281253056719, 141.22900343244706, 88.63189681592398, 142.63112724884473], mean: 126.20088859023177
+Valid sets:  ['./../Datasets/Regular/CS221Autumn2016dataset.csv', './../Datasets/Regular/CS124Winter2017dataset.csv', './../Datasets/Regular/CS161Autumn2017dataset.csv', './../Datasets/Regular/CS221Autumn2017dataset.csv', './../Datasets/Regular/CS161Spring2017dataset.csv', './../Datasets/Regular/CS224NWinter2017dataset.csv', './../Datasets/Regular/CS107Autumn2018dataset.csv', './../Datasets/Regular/CS124Winter2018dataset.csv']
+Mean training error: 352.1574162436806
+
+MSE 
+Leave-one-out RMSEs: [82.34632855835785, 84.27247478767063, 115.4081220128987, 152.06651710103793, 95.93339384141049, 114.86250320234639, 123.21121070028454, 106.13555949580854], mean: 109.27951371247688
+Valid sets:  ['./../Datasets/Regular/CS110Autumn2018dataset.csv', './../Datasets/Regular/CS107Autumn2018dataset.csv', './../Datasets/Regular/CS107Spring2018dataset.csv', './../Datasets/Regular/CS124Winter2017dataset.csv', './../Datasets/Regular/CS224NWinter2018dataset.csv', './../Datasets/Regular/CS224NWinter2017dataset.csv', './../Datasets/Regular/CS124Winter2018dataset.csv', './../Datasets/Regular/CS161Autumn2017dataset.csv']
+Mean training error: 12362.394532001916
+
+MAE
+
+Leave-one-out RMSEs: [110.32601823372387, 98.99743832790708, 69.62724704142917, 122.1899728835581, 95.306615532537, 169.10793163964868, 147.67646857616464, 71.18881742015847], mean: 110.55256370689088
+Valid sets:  ['./../Datasets/Regular/CS107Winter2018dataset.csv', './../Datasets/Regular/CS224NWinter2018dataset.csv', './../Datasets/Regular/CS107Autumn2018dataset.csv', './../Datasets/Regular/CS107Spring2018dataset.csv', './../Datasets/Regular/CS161Spring2017dataset.csv', './../Datasets/Regular/CS107Autumn2017dataset.csv', './../Datasets/Regular/CS221Autumn2017dataset.csv', './../Datasets/Regular/CS221Autumn2016dataset.csv']
+Mean training error: 70.2492979782082
