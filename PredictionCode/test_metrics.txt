@@ -1,4 +1,36 @@
-#metrics when trained on log of LI
+#metrics when trained on log of LI, 224Win18
 
 Test RMSE: 130.727
 
+#metrics when trained on logLI, CS110Aut18
+
+Test RMSE: 85.824
+
+
+k-fold validation, :
+
+
+SHRUG with const
+Validation RMSE: 175.165
+Leave-one-out RMSEs: [93.43251601600703, 110.02913481734069, 158.95333133144072, 80.76181744049713, 175.1647522223851], mean: 123.66831036553413
+Valid sets:  ['./../Datasets/Regular/CS110Autumn2018dataset.csv', './../Datasets/Regular/CS107Winter2018dataset.csv', './../Datasets/Regular/CS221Autumn2017dataset.csv', './../Datasets/Regular/CS221Autumn2016dataset.csv', './../Datasets/Regular/CS107Autumn2017dataset.csv']
+
+
+
+HUBER
+Validation RMSE: 86.528
+Leave-one-out RMSEs: [220.9755237207542, 116.25961922518627, 149.0162887702503, 118.66745260706185, 86.52830974163719], mean: 138.28943881297795
+Valid sets:  ['./../Datasets/Regular/CS221Autumn2016dataset.csv', './../Datasets/Regular/CS161Autumn2017dataset.csv', './../Datasets/Regular/CS221Autumn2017dataset.csv', './../Datasets/Regular/CS229Autumn2018dataset.csv', './../Datasets/Regular/CS110Autumn2018dataset.csv']
+
+
+SHRUG without const
+Validation RMSE: 104.788
+Leave-one-out RMSEs: [109.60884324584369, 93.76364356853617, 124.71877236243122, 171.58090999927654, 104.78763111074134], mean: 120.89196005736578
+Valid sets:  ['./../Datasets/Regular/CS107Winter2018dataset.csv', './../Datasets/Regular/CS161Spring2017dataset.csv', './../Datasets/Regular/CS229Autumn2018dataset.csv', './../Datasets/Regular/CS107Autumn2017dataset.csv', './../Datasets/Regular/CS161Autumn2017dataset.csv']
+
+ORIGINAL SHRUG with K-FOLD and logLI
+Validation RMSE: 100.988
+Leave-one-out RMSEs: [95.55011291604065, 180.87378211680533, 153.60342523584148, 223.44963488373477, 100.98790547041958], mean: 150.89297212456836
+Valid sets:  ['./../Datasets/Regular/CS110Autumn2018dataset.csv', './../Datasets/Regular/CS107Autumn2017dataset.csv', './../Datasets/Regular/CS221Autumn2017dataset.csv', './../Datasets/Regular/CS110Spring2018dataset.csv', './../Datasets/Regular/CS161Spring2017dataset.csv']
+
+ORIGINAL SHRUG with K-FOLD and logLI + number of servers 
