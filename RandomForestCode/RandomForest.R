@@ -14,7 +14,7 @@ boxplot(correctCols$loadInflux)
 #9am-11am #200
 cor.test(correctCols$servers,correctCols$hourOfDay)
 cor.test(correctCols$servers,correctCols$day)
-
+cor.test(correctCols$loadInflux, correctCols$isFirstOHWithinLastSixHour, method=c("pearson"))
 cor.test(correctCols$loadInflux, correctCols$daysAfterPrevAssnDue, method=c("pearson"))
 cor.test(correctCols$loadInflux, correctCols$daysUntilNextAssnDue, method=c("pearson"))
 cor.test(correctCols$loadInflux, correctCols$daysTilExam, method=c("pearson"))

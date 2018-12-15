@@ -237,9 +237,9 @@ SimulateNewClass(ClassNum = "CS107",
                  NumStudents = 1000, 
                  InstructorRating = 4.0, 
                  AvgHrsSpent = 15, 
-                 ProportionFrosh = 0.20, 
-                 ProportionGrads = 0.15, 
-                 ProportionPhDs = 0.05)
+                 ProportionFrosh = 0.05, 
+                 ProportionGrads = 0.90, 
+                 ProportionPhDs = 0.01)
 
 
 res <- gui(SimulateNewClass, argOption=list(QuarterYear=c("Winter2019","Spring2019"), output=1, closeOnExec=TRUE))
