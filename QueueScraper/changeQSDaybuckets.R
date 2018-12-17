@@ -3,7 +3,7 @@ changeDays <- function() {
   for (class in c(1:nrow(ClassesList))) {
     newDHFrame = correctCols
     fileName = paste0(ClassesList[class,"ClassNum"],ClassesList[class,"QuarterYear"],"dataset.csv")
-    sparseDayHourFrame = read.csv(fileName)
+    sparseDayHourFrame = read.csv(paste0("Regular/",fileName))
     rownames(sparseDayHourFrame) = sparseDayHourFrame[,1]
     sparseDayHourFrame = sparseDayHourFrame[,-1]
     entry = 1
